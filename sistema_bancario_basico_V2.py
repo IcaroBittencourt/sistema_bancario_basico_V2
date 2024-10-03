@@ -22,7 +22,8 @@ def menu():
      [3]  Extrato
      [4]  Nova Conta
      [5]  Novo Usuário
-     [6]  Sair
+     [6]  Listar Contas
+     [7]  Sair
      
     => \033[m"""
     return input(textwrap.dedent(menu))
@@ -128,12 +129,15 @@ def criar_conta(agencia, numero_conta, usuarios):
 def lista_contas(contas):
     for conta in contas:
         linha = f"""
-            Agência:\t{conta['agencia']}
+           \033[1m Agência:\t{conta['agencia']}
             c/c:\t\t{conta['numero_conta']}
             Titular:\t{conta['usuario']['nome']}
+            \033[m
         """
+        print()
         print("\033[1m=\033[m" * 100)
         print(textwrap.dedent(linha))
+        print("\033[1m=\033[m" * 100)
         
 def main():
     LIMITE_SAQUES = 3
@@ -180,9 +184,11 @@ def main():
                 contas.append(conta)
         
         elif opcao == "6":
+            processando(2)
             lista_contas(contas)
         
         elif opcao == "7":
+            processando(1)
             break
         
         else:
